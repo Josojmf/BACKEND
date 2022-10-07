@@ -1,5 +1,5 @@
 
-import { persona1, amigo1 ,amigo2 } from "./objetosTest";
+import { persona1, amigo1 ,amigo2 } from "./objetosTest.ts";
 
 const tostring = (input : any ) => {
     let ret:string="";

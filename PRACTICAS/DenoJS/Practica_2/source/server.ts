@@ -1,16 +1,17 @@
-import http from 'http';
-import express, { Express } from 'express';
-import morgan from 'morgan';
-import  routes  from './routes/posts';
-const router: Express = express();
-import dotenv from 'dotenv'
-dotenv.config();
-/** Logging */
-router.use(morgan('dev'));
+import { Server } from "https://deno.land/x/http/mod.ts";
+import { Express } from "https://deno.land/x/sentry_deno@v0.2.2/packages/tracing/src/integrations/node/express.ts";
+import  routes  from './routes/posts.ts';
+const router: Express = Express();
+import { config } from "https://deno.land/x/dotenv/mod.ts";
+import { createBodyParser, JsonBodyParser } from  "https://deno.land/x/body_parser/mod.ts"
+config();
+const bodyParser = createBodyParser({
+    parsers: [new JsonBodyParser()],
+  });
 /** Parse the request */
-router.use(express.urlencoded({ extended: false }));
+router.use(Express.urlencoded({ extended: false }));
 /** Takes care of JSON data */
-router.use(express.json());
+router.use(Express.json());
 
 /** RULES OF OUR API */
 router.use((req, res, next) => {
@@ -28,7 +29,6 @@ router.use((req, res, next) => {
 
 /** Routes */
 router.use('/', routes);
-const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 router.use(bodyParser.text());
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -43,8 +43,8 @@ router.use((req, res, next) => {
 });
 
 /** Server */
-const httpServer = http.createServer(router);
-const PORT: any = process.env.PORT;
+const httpServer = Server.createServer(router);
+const PORT: any = Deno.env.get("PORT");
 httpServer.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
 
 

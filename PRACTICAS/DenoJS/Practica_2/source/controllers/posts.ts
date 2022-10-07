@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import { connectDB } from '../connectDB';
+import { Express,Request, Response, NextFunction } from "https://deno.land/x/sentry_deno@v0.2.2/packages/tracing/src/integrations/node/express.ts";
+import { connectDB } from '../connectDB.ts';
 //Returns status of the server 
  const getStatus=async(req:Request,res:Response,next:NextFunction)=>{
      let a:String;
