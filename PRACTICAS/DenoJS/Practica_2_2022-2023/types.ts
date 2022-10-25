@@ -8,7 +8,7 @@ export type User = {
     ID: string;
 }
 
-export type Transactional = {
+export type Transaction= {
     ID_Sender: string;
     ID_Receiver: string;
     Amount: number;
